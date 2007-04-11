@@ -6,7 +6,7 @@ Release:	1
 License:	Apache
 Group:		Development/Languages/Java
 Source0:	http://www.apache.org/dist/jakarta/commons/io/source/commons-io-%{version}-src.tar.gz
-# Source0-md5:	d003445638bc272512112ace08d63bbb
+# Source0-md5:	44ef5bc01ed8f8f645fec2bcc94e600a
 URL:		http://jakarta.apache.org/commons/io/
 BuildRequires:	ant-junit >= 1.5
 BuildRequires:	jakarta-servletapi >= 2.3
