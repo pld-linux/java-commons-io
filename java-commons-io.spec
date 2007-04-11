@@ -32,30 +32,29 @@ Jakarta Commons IO documentation.
 Dokumentacja do Jakarta Commons IO.
 
 %prep
-%setup -q -n commons-io-%{version}
+%setup -q -n commons-io-%{version}-src
 
 %build
 export JAVA_HOME="%{java_home}"
 # for tests
 export CLASSPATH="`build-classpath servlet junit`"
-ant dist \
+ant dist javadoc \
 	-Dnoget=1
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-install dist/*.jar $RPM_BUILD_ROOT%{_javadir}
-ln -sf commons-io-1.3.1-SNAPSHOT.jar $RPM_BUILD_ROOT%{_javadir}/commons-io.jar
+install build/*.jar $RPM_BUILD_ROOT%{_javadir}
+ln -sf commons-io-1.3.1.jar $RPM_BUILD_ROOT%{_javadir}/commons-io.jar
 
 %clean
 rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc dist/*.txt
 %{_javadir}/*.jar
 
 %files doc
 %defattr(644,root,root,755)
-%doc dist/docs
+%doc build/dist-build/commons-io-%{version}/docs
