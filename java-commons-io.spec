@@ -18,7 +18,11 @@ BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Commons IO is a library of utilities to assist with developing
-IO functionality.
+I/O functionality.
+
+%description -l pl.UTF-8
+Commons IO to biblioteka narzędzi pomagających przy rozwijaniu
+funkcjonalności I/O.
 
 %package doc
 Summary:	Jakarta Commons IO documentation
