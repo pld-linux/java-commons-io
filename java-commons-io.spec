@@ -1,7 +1,8 @@
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
-#
+
+%include	/usr/lib/rpm/macros.java
 Summary:	Jakarta Commons IO component for Java servlets
 Summary(pl.UTF-8):	Komponent Jakarta Commons IO dla serwletów Javy
 Name:		jakarta-commons-io
@@ -16,10 +17,11 @@ BuildRequires:	ant-junit >= 1.5
 BuildRequires:	jakarta-servletapi >= 2.3
 BuildRequires:	jpackage-utils
 BuildRequires:	junit >= 3.8.1
+BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
-Obsoletes:	%{name}-doc
 Requires:	jpackage-utils
 Requires:	jre
+Obsoletes:	jakarta-commons-io-doc
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
