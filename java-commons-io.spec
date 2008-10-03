@@ -1,64 +1,86 @@
+#
+# Conditional build:
+%bcond_without	javadoc		# don't build javadoc
+#
 Summary:	Jakarta Commons IO component for Java servlets
 Summary(pl.UTF-8):	Komponent Jakarta Commons IO dla serwletów Javy
 Name:		jakarta-commons-io
-Version:	1.3.1
+Version:	1.4
 Release:	1
-License:	Apache
+License:	Apache v2.0
 Group:		Development/Languages/Java
-Source0:	http://www.apache.org/dist/jakarta/commons/io/source/commons-io-%{version}-src.tar.gz
-# Source0-md5:	44ef5bc01ed8f8f645fec2bcc94e600a
-URL:		http://jakarta.apache.org/commons/io/
+Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
+# Source0-md5:	24b228f2d0c40ffed9204cdab015bccf
+URL:		http://commons.apache.org/io/
 BuildRequires:	ant-junit >= 1.5
 BuildRequires:	jakarta-servletapi >= 2.3
 BuildRequires:	jpackage-utils
 BuildRequires:	junit >= 3.8.1
+BuildRequires:	rpmbuild(macros) >= 1.300
+Obsoletes:	%{name}-doc
+Requires:	jpackage-utils
 Requires:	jre
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
-Commons IO is a library of utilities to assist with developing
-I/O functionality.
+Commons IO is a library of utilities to assist with developing I/O
+functionality.
 
 %description -l pl.UTF-8
 Commons IO to biblioteka narzędzi pomagających przy rozwijaniu
 funkcjonalności I/O.
 
-%package doc
-Summary:	Jakarta Commons IO documentation
-Summary(pl.UTF-8):	Dokumentacja do Jakarta Commons IO
-Group:		Development/Languages/Java
+%package javadoc
+Summary:	Online manual for Commons IO
+Summary(pl.UTF-8):	Dokumentacja online do Commons IO
+Group:		Documentation
+Requires:	jpackage-utils
 
-%description doc
-Jakarta Commons IO documentation.
+%description javadoc
+Documentation for Commons IO.
 
-%description doc -l pl.UTF-8
-Dokumentacja do Jakarta Commons IO.
+%description javadoc -l pl.UTF-8
+Dokumentacja do Commons IO.
+
+%description javadoc -l fr.UTF-8
+Javadoc pour Commons IO.
 
 %prep
 %setup -q -n commons-io-%{version}-src
 
 %build
-export JAVA_HOME="%{java_home}"
 # for tests
-export CLASSPATH="`build-classpath servlet junit`"
-ant dist javadoc \
-	-Dnoget=1
+CLASSPATH=$(build-classpath servlet junit)
+%ant jar %{?with_javadoc:javadoc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT%{_javadir}
 
-install build/*.jar $RPM_BUILD_ROOT%{_javadir}
-ln -sf commons-io-1.3.1.jar $RPM_BUILD_ROOT%{_javadir}/commons-io.jar
+cp -a target/commons-io-%{version}.jar $RPM_BUILD_ROOT%{_javadir}
+ln -sf commons-io-%{version}.jar $RPM_BUILD_ROOT%{_javadir}/commons-io.jar
+
+# javadoc
+%if %{with javadoc}
+install -d $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+cp -a target/apidocs/* $RPM_BUILD_ROOT%{_javadocdir}/%{name}-%{version}
+ln -s %{name}-%{version} $RPM_BUILD_ROOT%{_javadocdir}/%{name} # ghost symlink
+%endif
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post javadoc
+ln -nfs %{name}-%{version} %{_javadocdir}/%{name}
 
 %files
 %defattr(644,root,root,755)
 %{_javadir}/*.jar
 
-%files doc
+%if %{with javadoc}
+%files javadoc
 %defattr(644,root,root,755)
-%doc build/dist-build/commons-io-%{version}/docs
+%{_javadocdir}/%{name}-%{version}
+%ghost %{_javadocdir}/%{name}
+%endif
