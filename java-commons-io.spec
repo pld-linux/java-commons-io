@@ -3,9 +3,9 @@
 %bcond_without	javadoc		# don't build javadoc
 
 %include	/usr/lib/rpm/macros.java
-Summary:	Jakarta Commons IO component for Java servlets
-Summary(pl.UTF-8):	Komponent Jakarta Commons IO dla serwletów Javy
-Name:		jakarta-commons-io
+Summary:	Commons IO component for Java servlets
+Summary(pl.UTF-8):	Komponent Commons IO dla serwletów Javy
+Name:		java-commons-io
 Version:	1.4
 Release:	1
 License:	Apache v2.0
@@ -21,6 +21,8 @@ BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
 Requires:	jre
+Provides:	jakarta-commons-io
+Obsoletes:	jakarta-commons-io
 Obsoletes:	jakarta-commons-io-doc
 BuildArch:	noarch
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -38,6 +40,8 @@ Summary:	Online manual for Commons IO
 Summary(pl.UTF-8):	Dokumentacja online do Commons IO
 Group:		Documentation
 Requires:	jpackage-utils
+Provides:	jakarta-commons-io-javadoc
+Obsoletes:	jakarta-commons-io-javadoc
 
 %description javadoc
 Documentation for Commons IO.
