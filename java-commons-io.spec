@@ -14,7 +14,7 @@ Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.
 # Source0-md5:	24b228f2d0c40ffed9204cdab015bccf
 URL:		http://commons.apache.org/io/
 BuildRequires:	ant-junit >= 1.5
-BuildRequires:	jakarta-servletapi >= 2.3
+BuildRequires:	java-servletapi >= 2.3
 BuildRequires:	jpackage-utils
 BuildRequires:	junit >= 3.8.1
 BuildRequires:	rpm-javaprov
