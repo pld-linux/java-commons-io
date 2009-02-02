@@ -9,7 +9,7 @@ Name:		java-commons-io
 Version:	1.4
 Release:	1
 License:	Apache v2.0
-Group:		Development/Languages/Java
+Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
 # Source0-md5:	24b228f2d0c40ffed9204cdab015bccf
 URL:		http://commons.apache.org/io/
