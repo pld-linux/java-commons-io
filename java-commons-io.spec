@@ -14,13 +14,13 @@ Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.
 # Source0-md5:	24b228f2d0c40ffed9204cdab015bccf
 URL:		http://commons.apache.org/io/
 BuildRequires:	ant-junit >= 1.5
-BuildRequires:	servletapi >= 2.3
+BuildRequires:	java-gcj-compat-devel
+BuildRequires:	java-servletapi
 BuildRequires:	jpackage-utils
 BuildRequires:	junit >= 3.8.1
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
-Requires:	jre
 Provides:	jakarta-commons-io
 Obsoletes:	jakarta-commons-io
 Obsoletes:	jakarta-commons-io-doc
@@ -40,7 +40,6 @@ Summary:	Online manual for Commons IO
 Summary(pl.UTF-8):	Dokumentacja online do Commons IO
 Group:		Documentation
 Requires:	jpackage-utils
-Provides:	jakarta-commons-io-javadoc
 Obsoletes:	jakarta-commons-io-javadoc
 
 %description javadoc
@@ -58,7 +57,7 @@ Javadoc pour Commons IO.
 %build
 # for tests
 CLASSPATH=$(build-classpath servlet junit)
-%ant jar %{?with_javadoc:javadoc}
+%ant -Dbuild.compiler=extJavac jar %{?with_javadoc:javadoc}
 
 %install
 rm -rf $RPM_BUILD_ROOT
