@@ -1,6 +1,7 @@
 #
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
+%bcond_with	tests		# run tests (takes long time)
 
 %include	/usr/lib/rpm/macros.java
 Summary:	Commons IO component for Java servlets
@@ -13,11 +14,11 @@ Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
 # Source0-md5:	24b228f2d0c40ffed9204cdab015bccf
 URL:		http://commons.apache.org/io/
-BuildRequires:	ant-junit >= 1.5
+BuildRequires:	ant
+%{?with_tests:BuildRequires:	ant-junit >= 1.5}
 BuildRequires:	java-gcj-compat-devel
-BuildRequires:	java-servletapi
 BuildRequires:	jpackage-utils
-BuildRequires:	junit >= 3.8.1
+%{?with_tests:BuildRequires:	junit >= 3.8.1}
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
@@ -56,8 +57,13 @@ Javadoc pour Commons IO.
 
 %build
 # for tests
-CLASSPATH=$(build-classpath servlet junit)
+export SHELL=/bin/sh
 %ant -Dbuild.compiler=extJavac jar %{?with_javadoc:javadoc}
+
+%if %{with tests}
+JUNITJAR=$(find-jar junit)
+%ant -Djunit.jar=$JUNITJAR test
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
