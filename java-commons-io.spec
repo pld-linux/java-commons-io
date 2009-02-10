@@ -8,7 +8,7 @@ Summary:	Commons IO component for Java servlets
 Summary(pl.UTF-8):	Komponent Commons IO dla serwletów Javy
 Name:		java-commons-io
 Version:	1.4
-Release:	1
+Release:	2
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
