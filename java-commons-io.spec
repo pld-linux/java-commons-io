@@ -2,6 +2,11 @@
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
 %bcond_with	tests		# run tests (takes long time)
+%bcond_with	java_sun	# build with java-sun
+
+%if "%{pld_release}" == "ti"
+%define	with_java_sun	1
+%endif
 
 %include	/usr/lib/rpm/macros.java
 
@@ -18,7 +23,8 @@ Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.
 URL:		http://commons.apache.org/io/
 BuildRequires:	ant
 %{?with_tests:BuildRequires:	ant-junit >= 1.5}
-BuildRequires:	java-gcj-compat-devel
+%{!?with_java_sun:BuildRequires:	java-gcj-compat-devel}
+%{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit >= 3.8.1}
 BuildRequires:	rpm-javaprov
@@ -59,8 +65,7 @@ Javadoc pour Commons IO.
 
 %build
 # for tests
-export SHELL=/bin/sh
-%ant -Dbuild.compiler=extJavac jar %{?with_javadoc:javadoc}
+%ant jar %{?with_javadoc:javadoc}
 
 %if %{with tests}
 JUNITJAR=$(find-jar junit)
