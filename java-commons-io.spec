@@ -2,10 +2,11 @@
 # Conditional build:
 %bcond_without	javadoc		# don't build javadoc
 %bcond_with	tests		# run tests (takes long time)
-%bcond_with	java_sun	# build with java-sun
 
 %if "%{pld_release}" == "ti"
-%define	with_java_sun	1
+%bcond_without	java_sun	# build with gcj
+%else
+%bcond_with	java_sun	# build with java-sun
 %endif
 
 %include	/usr/lib/rpm/macros.java
@@ -27,6 +28,7 @@ BuildRequires:	ant
 %{?with_java_sun:BuildRequires:	java-sun}
 BuildRequires:	jpackage-utils
 %{?with_tests:BuildRequires:	junit >= 3.8.1}
+BuildRequires:	rpm >= 4.4.9-56
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
