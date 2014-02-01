@@ -3,14 +3,13 @@
 %bcond_without	javadoc		# don't build javadoc
 %bcond_with	tests		# run tests (takes long time)
 
-%include	/usr/lib/rpm/macros.java
-
 %define		srcname	commons-io
+%include	/usr/lib/rpm/macros.java
 Summary:	Commons IO component for Java servlets
 Summary(pl.UTF-8):	Komponent Commons IO dla serwletów Javy
 Name:		java-commons-io
 Version:	1.4
-Release:	2
+Release:	3
 License:	Apache v2.0
 Group:		Libraries/Java
 Source0:	http://www.apache.org/dist/commons/io/source/commons-io-%{version}-src.tar.gz
@@ -24,7 +23,6 @@ BuildRequires:	jpackage-utils
 BuildRequires:	rpm-javaprov
 BuildRequires:	rpmbuild(macros) >= 1.300
 Requires:	jpackage-utils
-Provides:	jakarta-commons-io
 Obsoletes:	jakarta-commons-io
 Obsoletes:	jakarta-commons-io-doc
 BuildArch:	noarch
