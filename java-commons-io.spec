@@ -4,7 +4,6 @@
 %bcond_with	tests		# run tests (takes long time)
 
 %define		srcname	commons-io
-%include	/usr/lib/rpm/macros.java
 Summary:	Commons IO component for Java servlets
 Summary(pl.UTF-8):	Komponent Commons IO dla serwletów Javy
 Name:		java-commons-io
